@@ -3,3 +3,59 @@ $background: #f5f5f5;
 body {
   background: $background;
 }
+
+.container {
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  border-radius: 50%;
+  background: #a4ddc8;
+  .clock-body {
+    width: 500px;
+    height: 500px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    position: relative;
+  }
+  .time-slice-item {
+    width: 4px;
+    height: 10px;
+    background: black;
+    position: absolute;
+    left: 250px;
+    top: 0;
+    transform-origin: 0 250px;
+    -webkit-transform-origin: 0 250px;
+
+    .second-slice-item {
+      transform-origin: 0 250px;
+      -webkit-transform-origin: 0 250px;
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: black;
+    }
+  }
+
+  .center-point {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: red;
+    left: 247px;
+    top: 247px;
+    position: absolute;
+  }
+
+  @for $i from 1 through 12 {
+    .time-#{$i} {
+      transform: rotate($i * 30deg);
+    }
+  }
+
+  @for $i from 1 through 5 {
+    .second-#{$i} {
+      transform: rotate($i * 6deg);
+    }
+  }
+}
