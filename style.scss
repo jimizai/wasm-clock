@@ -5,11 +5,10 @@ body {
 }
 
 .container {
-  width: 500px;
-  height: 500px;
+  width: 502px;
+  height: 502px;
   position: absolute;
   border-radius: 50%;
-  background: #a4ddc8;
   .clock-body {
     width: 500px;
     height: 500px;
@@ -30,6 +29,12 @@ body {
     position: absolute;
     left: 250px;
     top: 0;
+    span {
+      position: absolute;
+      top: 8px;
+      font-size: 24px;
+      left: -12px;
+    }
 
     .second-slice-item {
       position: absolute;
@@ -44,9 +49,34 @@ body {
     height: 6px;
     border-radius: 50%;
     background: red;
+    z-index: 1;
     left: 247px;
     top: 247px;
     position: absolute;
+  }
+  .hour-hand {
+    width: 16px;
+    height: 100px;
+    position: absolute;
+    left: 242px;
+    top: 240px;
+    background: #304455;
+  }
+  .minute-hand {
+    width: 8px;
+    height: 180px;
+    position: absolute;
+    left: 246px;
+    top: 220px;
+    background: teal;
+  }
+  .second-hand {
+    width: 4px;
+    height: 250px;
+    position: absolute;
+    left: 248px;
+    top: 200px;
+    background: #f40;
   }
 
   @for $i from 1 through 12 {
