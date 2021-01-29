@@ -3,6 +3,22 @@ use yew::prelude::*;
 pub struct App {
 }
 
+pub enum Hand {
+    Hour,
+    Minute,
+    Second,
+}
+
+impl Hand {
+    fn get_hand_class_name(&self) -> &'static str {
+        match *self {
+            Hand::Hour => "hour_hand",
+            Hand::Minute => "minute_hand",
+            Hand::Second => "second_hand",
+        }
+    }
+}
+
 pub enum Msg {}
 
 impl Component for App {
@@ -37,13 +53,13 @@ impl Component for App {
 impl App {
     fn second_slice_view(&self, index: i32) -> Html {
         html! {
-            <div class=format!("second-slice-item second-{}", index)></div>
+            <div class=format!("second-slice-item transform-center second-{}", index)></div>
         }
     }
 
     fn time_slice_view(&self, index: i32) -> Html {
         html! {
-            <div class=format!("time-slice-item time-{}", index)>
+            <div class=format!("time-slice-item transform-center time-{}", index)>
                 {(1..5).map(|x| self.second_slice_view(x)).collect::<Html>()}
             </div>
         }

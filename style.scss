@@ -17,6 +17,12 @@ body {
     border-radius: 50%;
     position: relative;
   }
+
+  .transform-center {
+    transform-origin: 0 250px;
+    -webkit-transform-origin: 0 250px;
+  }
+
   .time-slice-item {
     width: 4px;
     height: 10px;
@@ -24,12 +30,8 @@ body {
     position: absolute;
     left: 250px;
     top: 0;
-    transform-origin: 0 250px;
-    -webkit-transform-origin: 0 250px;
 
     .second-slice-item {
-      transform-origin: 0 250px;
-      -webkit-transform-origin: 0 250px;
       position: absolute;
       width: 4px;
       height: 4px;
