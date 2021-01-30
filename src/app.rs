@@ -1,9 +1,12 @@
 use js_sys::Date;
 use log::*;
+use std::time::Duration;
 use yew::prelude::*;
+use yew::services::interval::{IntervalService, IntervalTask};
 
 pub struct App {
     timer: Timer,
+    interval_task: IntervalTask,
 }
 
 pub enum Hand {
@@ -22,19 +25,27 @@ impl Hand {
     }
 }
 
-pub enum Msg {}
+pub enum Msg {
+    Task,
+}
 
 impl Component for App {
     type Properties = ();
     type Message = Msg;
 
-    fn create(_props: Self::Properties, _link: ComponentLink<Self>) -> Self {
+    fn create(_props: Self::Properties, link: ComponentLink<Self>) -> Self {
+        let interval_task =
+            IntervalService::spawn(Duration::from_millis(1_000), link.callback(|_| Msg::Task));
         App {
             timer: Timer::new(),
+            interval_task,
         }
     }
 
-    fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+    fn update(&mut self, msg: Self::Message) -> ShouldRender {
+        match msg {
+            Msg::Task => self.timer.renew(),
+        }
         true
     }
 
@@ -82,14 +93,25 @@ impl App {
     }
 
     fn hand_view(&self, hand_type: Hand) -> Html {
-        let data = Date::new_0().get_hours();
-
-        info!("{:?}", data);
+        let deg = self.compute_deg(&hand_type);
         let class_name = hand_type.get_hand_class_name();
+        let deg = if deg < 180 { 180 + deg } else { deg - 180 };
+        let rotate_name = format!("rotate-{}", deg);
         html! {
-            <div class=format!("transform-center {}", class_name)>
+            <div class=format!("{} {}", class_name, rotate_name)>
             </div>
         }
+    }
+
+    fn compute_deg(&self, hand_type: &Hand) -> u32 {
+        let deg = match hand_type {
+            Hand::Second => self.timer.seconds * 6,
+            Hand::Minute => self.timer.minutes * 6,
+            Hand::Hour => {
+                self.timer.hours * 30 + (self.timer.minutes - self.timer.minutes % 6) / 12 * 6
+            }
+        };
+        deg % 360
     }
 }
 
