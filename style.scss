@@ -9,6 +9,9 @@ body {
   height: 502px;
   position: absolute;
   border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   .clock-body {
     width: 500px;
     height: 500px;
@@ -50,8 +53,8 @@ body {
     border-radius: 50%;
     background: red;
     z-index: 1;
-    left: 247px;
-    top: 247px;
+    left: 248px;
+    top: 248px;
     position: absolute;
   }
   .hour-hand {
@@ -61,6 +64,7 @@ body {
     left: 242px;
     top: 240px;
     background: #304455;
+    transform-origin: 8px 12px;
   }
   .minute-hand {
     width: 8px;
@@ -69,24 +73,32 @@ body {
     left: 246px;
     top: 220px;
     background: teal;
+    transform-origin: 4px 32px;
   }
   .second-hand {
     width: 4px;
     height: 250px;
     position: absolute;
-    left: 248px;
+    left: 249px;
     top: 200px;
     background: #f40;
+    transform-origin: 2px 52px;
   }
 
-  @for $i from 1 through 12 {
+  @for $i from 1 through 13 {
     .time-#{$i} {
       transform: rotate($i * 30deg);
     }
   }
 
-  @for $i from 1 through 5 {
+  @for $i from 1 through 6 {
     .second-#{$i} {
+      transform: rotate($i * 6deg);
+    }
+  }
+
+  @for $i from 0 through 61 {
+    .rotate-#{6 * $i} {
       transform: rotate($i * 6deg);
     }
   }
